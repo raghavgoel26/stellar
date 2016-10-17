@@ -1,0 +1,50 @@
+<html>
+    <head>
+           <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+           <script>
+               var effortsReceived;
+               function getEfforts(){
+
+                   axios.get('http://13.76.171.18:80/getEfforts').then(function(response){
+                       console.log(response.data);
+                       effortsReceived=response.data.amount;
+                   });
+
+               };
+
+               function validateEfforts(){
+
+                   axios.get('http://52.163.63.134:80/validateEfforts').then(function(response){
+                       console.log(response.data);
+                   });
+
+               };
+
+
+               function updateEfforts(){
+                   var efforts = document.querySelector('.effort').value;
+                   console.log(efforts);
+                   axios.post('http://52.163.63.134:80/updateEfforts',{
+                       effortsToApprove : efforts,
+                       effortsToReject : effortsReceived-efforts
+                   }).then(function(response){
+                       console.log(response.data);
+                   });
+
+               };
+
+
+            </script>
+     </head>
+ <body  style ="text-align:center">
+   <h1 style="text-align:center">USER B</h1>
+   <h3> Get Efforts which A has sent </h3>
+   <input type="button" onclick="getEfforts()" value="Get Efforts" />
+   <h3>Validate the complete efforts sent by A</h3>
+   <input type="button" onclick="validateEfforts()" value="Validate Efforts" />
+   <h3>Validate only part of efforts sent by A and return back extra efforts to A</h3>
+   Efforts : <input type="text" class="effort">
+   <input type="button" onclick="updateEfforts()" value="Approve Efforts Partially"  />
+   <!-- <input type="button" onclick="rejectTransaction()" /> -->
+  </body>
+</html>

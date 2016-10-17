@@ -1,0 +1,23 @@
+<html>
+    <head>
+           <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+           <script>
+               function submitEfforts(){
+                   var efforts = document.querySelector('.effort').value;
+                   console.log(efforts);
+                   axios.post('http://13.76.171.18:80/submitEfforts',{
+                       efforts : efforts
+                   }).then(function(response){
+                       console.log(response.data);
+                   });
+               };
+            </script>
+     </head>
+ <body style ="text-align:center">
+   <h1 style="text-align:center">USER A</h1>
+     <h3> Submit Efforts , Initiate transaction from A to B(Delivery Manager)</h3>
+     Efforts : <input type="text" class="effort">
+     <input type="submit" onclick="submitEfforts()" />
+
+  </body>
+</html>
